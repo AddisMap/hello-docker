@@ -12,10 +12,15 @@ class RoboFile extends \Robo\Tasks
         $this->stopOnFail();
     }
 
+    public function testCi()
+    {
+        $this->_exec('php artisan key:generate');
+        $this->taskComposerInstall()->run();
+        $this->test();
+    }
+
     public function test()
     {
-        $this->taskComposerInstall()->run();
-
         $this->stopOnFail(false);
         $resultStatic = $this->testStatic();
         $resultPhpunit = $this->testPhpunit();

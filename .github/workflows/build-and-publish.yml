@@ -48,7 +48,7 @@ jobs:
           push: true
       - name: Test
         run: |
-          docker run --rm ghcr.io/addismap/hello-docker:test-${{ github.ref_name }} /bin/bash -c "robo test"
+          docker run --rm ghcr.io/addismap/hello-docker:test-${{ github.ref_name }} /bin/bash -c "robo test:ci"
       - name: Build image and push to Docker Hub and GitHub Container Registry
         uses: docker/build-push-action@v2
         with:

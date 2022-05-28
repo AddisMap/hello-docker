@@ -48,7 +48,7 @@ jobs:
           tags: ${{ env.TEST_TAG }}
       - name: Test
         run: |
-          docker run --rm ${{ env.TEST_TAG }} "composer install --dev && vendor/bin/phpcs"
+          docker run --rm ${{ env.TEST_TAG }} /bin/bash -c "composer install --dev && vendor/bin/phpcs"
       - name: Build image and push to Docker Hub and GitHub Container Registry
         uses: docker/build-push-action@v2
         with:

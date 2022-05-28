@@ -16,6 +16,7 @@ FROM composer:2.2.9 as composer
 FROM php:8.1-apache-buster
 
 RUN apt-get update && apt-get install -y zip
+RUN wget https://robo.li/robo.phar && chmod +x robo.phar && sudo mv robo.phar /usr/bin/robo
 
 ENV LOG_CHANNEL=stderr
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public

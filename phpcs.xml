@@ -18,6 +18,9 @@
     <exclude-pattern>*.blade.php</exclude-pattern>
     <exclude-pattern>*.js</exclude-pattern>
 
-    <!-- Show progression -->
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern>tests/**</exclude-pattern>
+    </rule>
+
     <arg value="p"/>
 </ruleset>

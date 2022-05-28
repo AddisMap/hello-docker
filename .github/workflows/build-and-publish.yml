@@ -7,9 +7,6 @@ on:
   # run it during pull request
   pull_request:
 
-env:
-  TEST_TAG: addismap/hello-docker:test
-
 jobs:
   # define job to build and publish docker image
   build-and-push-docker-image:

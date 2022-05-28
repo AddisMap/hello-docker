@@ -28,5 +28,5 @@ RUN chown -R www-data:www-data /var/www/html/storage || true
 RUN chown -R www-data:www-data /var/www/html/bootstrap/cache || true
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
-#RUN composer install --no-dev
+RUN composer install --no-dev
 

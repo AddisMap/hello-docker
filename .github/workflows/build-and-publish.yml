@@ -44,7 +44,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          load: true
           # push prebuild branch test image for local debugging in case anything fails
           # any if we are not on a branch
           tags: |
@@ -52,7 +51,7 @@ jobs:
           push: true
       - name: Test
         run: |
-          docker run --rm ${{ env.TEST_TAG }} /bin/bash -c "robo test"
+          docker run --rm ghcr.io/addismap/hello-docker:test-${GITHUB_REF##*/} /bin/bash -c "robo test"
       - name: Build image and push to Docker Hub and GitHub Container Registry
         uses: docker/build-push-action@v2
         with:

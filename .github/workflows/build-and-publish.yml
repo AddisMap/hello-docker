@@ -45,7 +45,11 @@ jobs:
         with:
           context: .
           load: true
-          tags: ${{ env.TEST_TAG }}
+          # push prebuild branch test image for local debugging in case anything fails
+          # any if we are not on a branch
+          tags: |
+            ghcr.io/addismap/hello-docker:test-${GITHUB_REF##*/}
+          push: true
       - name: Test
         run: |
           docker run --rm ${{ env.TEST_TAG }} /bin/bash -c "robo test"

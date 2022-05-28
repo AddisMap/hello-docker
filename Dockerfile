@@ -1,18 +1,5 @@
 FROM composer:2.2.9 as composer
 
-#WORKDIR /tmp/
-
-#COPY composer.json composer.json
-#COPY composer.lock composer.lock
-
-#RUN composer install \
-#    --ignore-platform-reqs \
-#    --no-interaction \
-#    --no-plugins \
-#    --no-scripts \
-#    --prefer-dist
-
-
 FROM php:8.1-apache-buster
 
 RUN apt-get update && apt-get install -y zip
@@ -30,4 +17,3 @@ RUN chown -R www-data:www-data /var/www/html/bootstrap/cache || true
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN composer install --no-dev
-

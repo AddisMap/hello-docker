@@ -14,6 +14,9 @@ class RoboFile extends \Robo\Tasks
 
     public function testCi()
     {
+        $this->taskFilesystemStack()
+            ->copy('.env.example', '.env')
+            ->run();
         $this->_exec('php artisan key:generate');
         $this->taskComposerInstall()->run();
         $this->test();

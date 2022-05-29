@@ -44,14 +44,14 @@ jobs:
           tags: |
             ghcr.io/addismap/hello-docker:test-${{ github.ref_name }}
           load: true
-      - name: Test Image
+      - name: Push Test Image
         run: |
           docker push ghcr.io/addismap/hello-docker:test-${{ github.ref_name }}
+      - name: Test Image
+        run: |
           docker run --rm ghcr.io/addismap/hello-docker:test-${{ github.ref_name }} /bin/bash -c "robo test:ci"
       - name: Tag "latest" and Push to GitHub Container Registry
         if: github.ref == 'refs/heads/main'
         run: |
           docker tag ghcr.io/addismap/hello-docker:test-${{ github.ref_name }} ghcr.io/addismap/hello-docker:latest
           docker push ghcr.io/addismap/hello-docker:latest
-      - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}

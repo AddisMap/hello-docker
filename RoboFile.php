@@ -49,7 +49,9 @@ class RoboFile extends \Robo\Tasks
     public function testLint($checkStyle = false)
     {
         $result = $this->taskExec('vendor/bin/phpcs -s'. ($checkStyle ? ' --report-full --report-checkstyle=./phpcs-report.xml' : ''))->run()->wasSuccessful();
-        $this->_exec('vendor/bin/cs2pr ./phpcs-report.xml');
+        if ($checkStyle) {
+            $this->_exec('vendor/bin/cs2pr ./phpcs-report.xml');
+        }
         return $result;
     }
 

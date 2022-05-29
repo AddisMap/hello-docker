@@ -37,21 +37,21 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_PAT }}
 
-      - name: Build Image and Push Test-Tag
+      - name: Build Image and Load to Docker
         uses: docker/build-push-action@v3
         with:
           context: .
           tags: |
             ghcr.io/addismap/hello-docker:test-${{ github.ref_name }}
           load: true
-      - name: Test
+      - name: Test Image
         run: |
-          docker push
+          docker push ghcr.io/addismap/hello-docker:test-${{ github.ref_name }}
           docker run --rm ghcr.io/addismap/hello-docker:test-${{ github.ref_name }} /bin/bash -c "robo test:ci"
-      - name: Push to GitHub Container Registry
+      - name: Tag "latest" and Push to GitHub Container Registry
         if: github.ref == 'refs/heads/main'
         run: |
           docker tag ghcr.io/addismap/hello-docker:test-${{ github.ref_name }} ghcr.io/addismap/hello-docker:latest
-          docker push
+          docker push ghcr.io/addismap/hello-docker:latest
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}

@@ -16,6 +16,11 @@ jobs:
 
     # steps to perform in job
     steps:
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v4
+        with:
+          prefix: SLUG_
+
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -42,16 +47,16 @@ jobs:
         with:
           context: .
           tags: |
-            ghcr.io/addismap/hello-docker:test-${{ github.ref_name }}
+            ghcr.io/addismap/hello-docker:test-${{ env.SLUG_GITHUB_REF_NAME }}
           load: true
       - name: Push Test Image
         run: |
-          docker push ghcr.io/addismap/hello-docker:test-${{ github.ref_name }}
+          docker push ghcr.io/addismap/hello-docker:test-${{ env.SLUG_GITHUB_REF_NAME }}
       - name: Test Image
         run: |
-          docker run --rm ghcr.io/addismap/hello-docker:test-${{ github.ref_name }} /bin/bash -c "robo test:ci"
+          docker run --rm ghcr.io/addismap/hello-docker:test-${{ env.SLUG_GITHUB_REF_NAME }} /bin/bash -c "robo test:ci"
       - name: Tag "latest" and Push to GitHub Container Registry
         if: github.ref == 'refs/heads/main'
         run: |
-          docker tag ghcr.io/addismap/hello-docker:test-${{ github.ref_name }} ghcr.io/addismap/hello-docker:latest
+          docker tag ghcr.io/addismap/hello-docker:test-${{ env.SLUG_GITHUB_REF_NAME }} ghcr.io/addismap/hello-docker:latest
           docker push ghcr.io/addismap/hello-docker:latest

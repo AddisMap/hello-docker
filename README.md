@@ -38,7 +38,7 @@ docker login ghcr.io
    ```
 2. Execute
    ```
-   composer require --dev squizlabs/php_codesniffer nunomaduro/larastan
+   composer require --dev squizlabs/php_codesniffer nunomaduro/larastan staabm/annotate-pull-request-from-checkstyle
    ```
    
 3. Adapt `.github/workflows/build-and-publish.yml`: Replace `addismap/hello-docker` by your own project name

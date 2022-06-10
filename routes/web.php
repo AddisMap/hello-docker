@@ -1,18 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OsmapController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [OsmapController::class, 'index']);
+// Route::get('/osmaps', [OsmapController::class, 'show']);
+Route::get('/{type}/{id}', [OsmapController::class, 'show'])->name('osmaps.show')->scopeBindings();
+Route::get('/osmaps/{id}', [OsmapController::class, 'single'])->name('osmaps.single');
+
+// Route::get('/{osmap:type}/{osmap:id}', function($type, $id) {
+//     $url = 'https://www.openstreetmap.org/api/0.6/'.$type.'/'.$id.'.json';
+//     return view('osmaps.mapniks');
+// })->name('osmaps.mapniks')->scopeBindings();

@@ -4,8 +4,8 @@ on:
   pull_request:
 
 jobs:
-  build-and-push-docker-image:
-    name: Build Docker image and push to repositories
+  build-and-test-pullrequest:
+    name: Build Docker image and test for Pull Requests
     runs-on: ubuntu-latest
 
     # steps to perform in job
